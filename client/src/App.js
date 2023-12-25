@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Posts from "./Posts";
 function App() {
@@ -8,26 +8,45 @@ function App() {
     if (title !== "") {
       axios
         .post("http://localhost:8000/posts", {
-          body: {
-            title: title,
-          },
+          title: title,
         })
         .then((res) => {
-          if (res.status === 201) {
+          if (res.status === 200) {
+            fetchData();
           }
         });
     }
   };
-  const handleOnChange = (e) => {};
+  const handleOnChange = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const fetchData = () => {
+    axios.get("http://localhost:8000/posts").then((res) => {
+      setPosts(res.data);
+    });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <div>
       <h1>Create a post</h1>
       <input onChange={handleOnChange} />
       <button onClick={handleSubmit}>Add</button>
       <h1>Posts</h1>
-      {posts.map((post) => {
-        return <Posts post={post} />;
-      })}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "auto auto auto",
+          gap: "20px",
+        }}
+      >
+        {posts.map((post) => {
+          return <Posts post={post} />;
+        })}
+      </div>
     </div>
   );
 }
