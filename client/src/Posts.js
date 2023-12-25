@@ -1,17 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Comments from "./Comments";
 
 const Posts = ({ post }) => {
-  const [content, setContent] = useState("");
-
-  const handleClick = () => {
-    axios.post("http://localhost:8000/comment", {
-      content: content,
-    });
-  };
-  const handleChange = (e) => {
-    setContent(e.target.value);
-  };
   return (
     <div
       style={{
@@ -21,8 +12,7 @@ const Posts = ({ post }) => {
       }}
     >
       <h2>{post.title}</h2>
-      <input onChange={handleChange} />
-      <button onClick={handleClick}>comment</button>
+      <Comments postId={post.id} />
     </div>
   );
 };
