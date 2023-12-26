@@ -1,4 +1,5 @@
 const express = require("express");
+const axios = require("axios");
 
 const app = express();
 app.use(express.json({ limit: "10kb" }));
@@ -19,6 +20,11 @@ app.post("/", (req, res) => {
     comments[postId] = [];
   }
   comments[postId].push(data);
+  axios.post("http://localhost:8003", {
+    postId: postId,
+    content: content,
+    commentId: commentId,
+  });
   res.status(200).json({ message: "comment added successfully" });
 });
 
