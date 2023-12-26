@@ -2,5 +2,5 @@ client/node_modules
 server/gateway/node_modules
 server/posts/node_modules
 server/comments/node_modules 
-server/postComments/node_modules 
+server/postcomments/node_modules 
 
