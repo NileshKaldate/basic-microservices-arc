@@ -8,6 +8,7 @@ app.use(express.json());
 app.post("/posts", (req, res) => {
   const { postId, title } = req.body;
   posts.push({ postId, title, comments: [] });
+  console.log(posts);
   res.send();
 });
 
@@ -15,6 +16,7 @@ app.post("/comments", (req, res) => {
   const { postId, content, commentId } = req.body;
   const post = posts.find((post) => post.postId === postId);
   post.comments.push({ content, commentId });
+  console.log(posts);
   res.send();
 });
 

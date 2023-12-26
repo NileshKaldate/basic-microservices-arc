@@ -20,7 +20,7 @@ app.post("/", (req, res) => {
     comments[postId] = [];
   }
   comments[postId].push(data);
-  axios.post("http://localhost:8003", {
+  axios.post("http://localhost:8003/comments", {
     postId: postId,
     content: content,
     commentId: commentId,
