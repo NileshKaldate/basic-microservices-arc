@@ -20,10 +20,13 @@ app.post("/", (req, res) => {
     comments[postId] = [];
   }
   comments[postId].push(data);
-  axios.post("http://localhost:8003/comments", {
-    postId: postId,
-    content: content,
-    commentId: commentId,
+  axios.post("http://localhost:8003/events", {
+    type: "commentCreated",
+    data: {
+      postId: postId,
+      content: content,
+      commentId: commentId,
+    },
   });
   res.status(200).json({ message: "comment added successfully" });
 });

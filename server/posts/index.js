@@ -8,13 +8,16 @@ app.get("/", (req, res) => {
   res.status(200).json(posts);
 });
 
-app.post("/", (req, res) => {
+app.post("/", async (req, res) => {
   const { title } = req.body;
   const id = "id" + Math.random().toString(16).slice(2);
   posts = [...posts, { title: title, id: id }];
-  axios.post("http://localhost:8003/posts", {
-    postId: id,
-    title: title,
+  axios.post("http://localhost:8005/events", {
+    type: "postCreated",
+    data: {
+      postId: id,
+      title: title,
+    },
   });
   res.status(200).json({
     message: "Post added successfully",
